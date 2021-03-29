@@ -1,4 +1,6 @@
 import asyncio
+from time import time
+
 import aiohttp
 
 url = 'https://store.playstation.com/ru-ru/category/44d8bb20-653e-431e-8ad0-c0a365f68d2f/'
@@ -90,7 +92,10 @@ def main():
 
 
 def lambda_handler(event, context):
+    start_time = time()
     last_page = main()
+    total_time = time() - start_time
     return{
-        'last_page': last_page
+        'last_page': last_page,
+        'work_time': round(total_time, 2)
     }
